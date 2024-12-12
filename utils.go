@@ -1,8 +1,8 @@
 package main
 
 import (
-	"time"
 	"math/rand"
+	"time"
 )
 
 // 生成一个不重复的随机数切片，范围在 1 到 20 之间
@@ -26,7 +26,21 @@ func generateUniqueRandomNumbers(min, max, count int) []int {
 	return numbers[:count]
 }
 
-// 生成每天加 7 天的日期
-func getNextDate(currentDate time.Time, daysToAdd int) string {
-	return currentDate.AddDate(0, 0, daysToAdd).Format("2006-01-02")
+// filter is a generic function that filters a slice based on a condition
+func filter[T any](items []T, condition func(T) bool) []T {
+	var result []T
+	for _, item := range items {
+		if condition(item) {
+			result = append(result, item)
+		}
+	}
+	return result
+}
+
+func mapping[T any, C any](items []T, mapFunc func(T) C) []C {
+	var result []C
+	for _, item := range items {
+		result = append(result, mapFunc(item))
+	}
+	return result
 }
